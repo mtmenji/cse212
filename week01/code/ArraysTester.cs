@@ -1,3 +1,5 @@
+using System.Globalization;
+
 public static class ArraysTester {
     /// <summary>
     /// Entry point for the tests
@@ -14,16 +16,16 @@ public static class ArraysTester {
 
         Console.WriteLine("\n=========== PROBLEM 2 TESTS ===========");
         List<int> numbers = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-        RotateListRight(numbers, 1);
+        numbers = RotateListRight(numbers, 1);
         Console.WriteLine($"<List>{{{string.Join(',', numbers)}}}"); // <List>{9, 1, 2, 3, 4, 5, 6, 7, 8}
         numbers = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-        RotateListRight(numbers, 5);
+        numbers = RotateListRight(numbers, 5);
         Console.WriteLine($"<List>{{{string.Join(',', numbers)}}}"); // <List>{5, 6, 7, 8, 9, 1, 2, 3, 4}
         numbers = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-        RotateListRight(numbers, 3);
+        numbers = RotateListRight(numbers, 3);
         Console.WriteLine($"<List>{{{string.Join(',', numbers)}}}"); // <List>{7, 8, 9, 1, 2, 3, 4, 5, 6}
         numbers = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-        RotateListRight(numbers, 9);
+        numbers = RotateListRight(numbers, 9);
         Console.WriteLine($"<List>{{{string.Join(',', numbers)}}}"); // <List>{1, 2, 3, 4, 5, 6, 7, 8, 9}
     }
     /// <summary>
@@ -34,12 +36,19 @@ public static class ArraysTester {
     /// <returns>array of doubles that are the multiples of the supplied number</returns>
     private static double[] MultiplesOf(double number, int length)
     {
-        // TODO Problem 1 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+        // Initialize variables: an array to hold every number, an int to hold each new number.
+        var problemOneList = new List<double>();
+        double newNumber = number;
 
-        return new double[0]; // replace this return statement with your own
+
+        // This is a loop that will loop "length" amount of times. Each iteration, "newNumber" will be the sum of the first number added by the initial number. It will then be added to an array.
+        for (var i = 0; i < length; i++) {
+            problemOneList.Add(newNumber);
+            newNumber += number;
+        }
+
+        // Return the result in an array format.
+        return problemOneList.ToArray();
     }
     
     /// <summary>
@@ -50,12 +59,22 @@ public static class ArraysTester {
     /// <br /><br />
     /// Because a list is dynamic, this function will modify the existing <c>data</c> list rather than returning a new list.
     /// </summary>
-    private static void RotateListRight(List<int> data, int amount)
+    private static List<int> RotateListRight(List<int> data, int amount)
     {
-        // TODO Problem 2 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+        // Make sure the amount doesn't exceed the length of the array.
+        amount = amount % data.Count;
+
+        // Create the first part of the array.
+        List<int> data1 = data.GetRange(data.Count - amount, amount);
+
+        // Create the second part of the array.
+        List<int> data2 = data.GetRange(0, data.Count - amount);
+
+        // Combine the completed new array.
+        List<int> newList = data1.Concat(data2).ToList();
+
+        // Return the new list.
+        return newList;
 
     }
 }
