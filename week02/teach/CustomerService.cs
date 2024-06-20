@@ -11,24 +11,62 @@ public class CustomerService {
         // Test Cases
 
         // Test 1
-        // Scenario: 
-        // Expected Result: 
+        // Scenario: If a user enters an invalid input for queue size, then it should default to 10.
+        // Expected Result: 10
         Console.WriteLine("Test 1");
-
-        // Defect(s) Found: 
+        var service = new CustomerService(0);
+        Console.WriteLine($"Size should be 10: {service}");
+        // Defect(s) Found: No error.
 
         Console.WriteLine("=================");
 
         // Test 2
-        // Scenario: 
-        // Expected Result: 
+        // Scenario: AddNewCustomer method should enqueue a new customer into the queue.
+        // Expected Result: Expecting 1 in the queue.
         Console.WriteLine("Test 2");
+        service = new CustomerService(2);
+        service.AddNewCustomer();
+        Console.WriteLine($"Queue number should be 1: {service}");
 
-        // Defect(s) Found: 
+        // Defect(s) Found: None
 
         Console.WriteLine("=================");
 
-        // Add more Test Cases As Needed Below
+        // Test 3
+        // Scenario: Error message should be displayed if a customer is added with a maximized queue.
+        // Expected Result: There should be an error.
+        Console.WriteLine("Test 3");
+        service = new CustomerService(2);
+        service.AddNewCustomer();
+        service.AddNewCustomer();
+        service.AddNewCustomer();
+        Console.WriteLine($"Service Queue: {service}");
+
+
+        // Defect(s) Found: The function should have included ">=" and not ">".
+
+        // Test 4
+        // Scenario: ServerCustomer method should display customer details and remove them from the queue.
+        // Expected Result: Details of customer and one less number on the queue.
+        Console.WriteLine("Test 4");
+        service = new CustomerService(2);
+        service.AddNewCustomer();
+        Console.WriteLine($"Service Queue: {service}");
+        service.ServeCustomer();
+        Console.WriteLine($"Service Queue: {service}");
+
+
+        // Defect(s) Found: Customer details need to be displayed before their information is deleted from the queue.
+
+        // Test 5
+        // Scenario: Error should be displayed if ServeCustomer method is called with an empty queue.
+        // Expected Result: Error message.
+        Console.WriteLine("Test 5");
+        service = new CustomerService(2);
+        service.ServeCustomer();
+
+
+        // Defect(s) Found: Needed to add logic to see if the queue was empty, then display an error message.
     }
 
     private readonly List<Customer> _queue = new();
@@ -67,7 +105,7 @@ public class CustomerService {
     /// </summary>
     private void AddNewCustomer() {
         // Verify there is room in the service queue
-        if (_queue.Count > _maxSize) {
+        if (_queue.Count >= _maxSize) {
             Console.WriteLine("Maximum Number of Customers in Queue.");
             return;
         }
@@ -88,9 +126,15 @@ public class CustomerService {
     /// Dequeue the next customer and display the information.
     /// </summary>
     private void ServeCustomer() {
-        _queue.RemoveAt(0);
-        var customer = _queue[0];
-        Console.WriteLine(customer);
+        if (_queue.Count <= 0)
+        {
+            Console.WriteLine("No Customers in the queue");
+        }
+        else {
+            var customer = _queue[0];
+            _queue.RemoveAt(0);
+            Console.WriteLine(customer);
+        }
     }
 
     /// <summary>
