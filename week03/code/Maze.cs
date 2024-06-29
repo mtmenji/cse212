@@ -23,37 +23,40 @@ public class Maze {
         _mazeMap = mazeMap;
     }
 
-    // Todo Maze Problem - ADD YOUR CODE HERE
-    /// <summary>
-    /// Check to see if you can move left.  If you can, then move.  If you
-    /// can't move, then display "Can't go that way!"
-    /// </summary>
     public void MoveLeft() {
-        // FILL IN CODE
+        if (_mazeMap[(_currX, _currY)][0]) {
+            _currX--;
+            Console.WriteLine("Moved Left");
+        } else {
+            Console.WriteLine("Can't go that way!");
+        }
     }
 
-    /// <summary>
-    /// Check to see if you can move right.  If you can, then move.  If you
-    /// can't move, then display "Can't go that way!"
-    /// </summary>
     public void MoveRight() {
-        // FILL IN CODE
+        if (_mazeMap[(_currX, _currY)][1]) {
+            _currX++;
+            Console.WriteLine("Moved Right");
+        } else {
+            Console.WriteLine("Can't go that way!");
+        }
     }
 
-    /// <summary>
-    /// Check to see if you can move up.  If you can, then move.  If you
-    /// can't move, then display "Can't go that way!"
-    /// </summary>
     public void MoveUp() {
-        // FILL IN CODE
+        if (_mazeMap[(_currX, _currY)][2]) {
+            _currY--;
+            Console.WriteLine("Moved Up");
+        } else {
+            Console.WriteLine("Can't go that way!");
+        }
     }
 
-    /// <summary>
-    /// Check to see if you can move down.  If you can, then move.  If you
-    /// can't move, then display "Can't go that way!"
-    /// </summary>
     public void MoveDown() {
-        // FILL IN CODE
+        if (_mazeMap[(_currX, _currY)][3]) {
+            _currY++;
+            Console.WriteLine("Moved Down");
+        } else {
+            Console.WriteLine("Can't go that way!");
+        }
     }
 
     public void ShowStatus() {
